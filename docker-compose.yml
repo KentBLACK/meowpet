@@ -1,0 +1,26 @@
+version: "3.7"
+
+volumes:
+  pg_chat:
+
+services:
+  chat_db:
+    image: postgres:13
+    environment:
+      -  POSTGRES_USER=postgres
+      -  POSTGRES_PASSWORD=565758DrD
+      -  POSTGRES_DB=postgres
+    volumes:
+      - pg_chat:/var/lib/postgresql/data
+    ports:
+      -  "127.0.0.1:8888:5432"
+  app:
+    restart: always
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - chat_db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://chat_db:5432/postgres
+      JAVA_OPTS: -Xmx512m
