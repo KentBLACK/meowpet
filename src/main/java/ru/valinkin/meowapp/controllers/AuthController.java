@@ -3,6 +3,7 @@ package ru.valinkin.meowapp.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.valinkin.meowapp.models.User;
 import ru.valinkin.meowapp.services.UserService;
 
@@ -23,19 +24,15 @@ public class AuthController {
     }
 
     @PostMapping("/auth")
-    public String login(@ModelAttribute("user") User formUser, Model model) {
+    public String login(@ModelAttribute("user") User formUser, Model model, RedirectAttributes redirectAttributes) {
         Optional<User> found = userService.findByLogin(formUser.getLogin());
 
         if (found.isPresent() && found.get().getPassword().equals(formUser.getPassword())) {
+            redirectAttributes.addFlashAttribute("user", found.get());
             return "redirect:/chats";
         } else {
             model.addAttribute("error", "Неверный логин или пароль");
             return "auth";
         }
-    }
-
-    @GetMapping("/chats")
-    public String chatsPage() {
-        return "chats";
     }
 }

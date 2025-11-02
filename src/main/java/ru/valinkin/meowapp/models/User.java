@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private int id;
 
-    @Column(name = "login")
+    @Column(name = "username")
     private String login;
 
     @Column(name = "password")
@@ -24,10 +24,10 @@ public class User {
     }
 
     public int getID() {
-        return ID;
+        return id;
     }
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(int id) {
+        this.id = id;
     }
     public String getLogin() {
         return login;

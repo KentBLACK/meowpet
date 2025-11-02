@@ -2,9 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Чаты</title>
+    <title>Мои чаты</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: #4a5568; color: white; padding: 20px; border-radius: 10px 10px 0 0; margin: -20px -20px 20px -20px; }
+        .chat-item { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; background: #f9f9f9; }
+        .chat-item:hover { background: #edf2f7; }
+        .chat-link { text-decoration: none; color: #333; font-weight: bold; }
+        .user-info { background: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+    </style>
 </head>
 <body>
-<h2>Добро пожаловать в систему чатов!</h2>
+<div class="container">
+    <div class="header">
+        <h1>Мои чаты</h1>
+    </div>
+
+    <div class="user-info">
+        <strong>Пользователь:</strong>
+        <span th:text="${user.login}"></span>
+        <a th:href="@{/auth}" style="float: right;">Выйти</a>
+    </div>
+
+    <div th:if="${!chats.isEmpty()}">
+        <h2>Список чатов:</h2>
+        <div th:each="chat : ${chats}" class="chat-item">
+            <a th:href="@{/chats/{id}(id=${chat.id})}" class="chat-link">
+                Чат #<span th:text="${chat.id}"></span>
+            </a>
+            <br>
+            Участник 1: ID <span th:text="${chat.user1id}"></span> |
+            Участник 2: ID <span th:text="${chat.user2id}"></span>
+        </div>
+    </div>
+
+    <div th:if="${chats.isEmpty()}">
+        <p style="text-align: center; padding: 40px; color: #666;">
+            😔 Чатов пока нет
+        </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a th:href="@{/}">Главная</a> |
+        <a th:href="@{/auth}">Назад</a>
+    </div>
+</div>
 </body>
 </html>
