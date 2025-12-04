@@ -7,14 +7,21 @@
 <body>
 <h2>Вход</h2>
 
-<form th:action="@{/auth}" th:object="${user}" method="post">
+<form th:action="@{/login}" method="post">
     <label>Логин: </label>
-    <input type="text" th:field="*{login}" required><br><br>
+    <input type="text" name="username" required><br><br>
 
     <label>Пароль: </label>
-    <input type="password" th:field="*{password}" required><br><br>
+    <input type="password" name="password" required><br><br>
 
     <button type="submit">Войти</button>
+</form>
+
+<br>
+
+<!-- КНОПКА ПЕРЕХОДА НА РЕГИСТРАЦИЮ -->
+<form th:action="@{/registration}" method="get">
+    <button type="submit">Регистрация</button>
 </form>
 
 <p th:if="${error}" th:text="${error}" style="color:red;"></p>

@@ -22,7 +22,7 @@
     <div class="user-info">
         <strong>Пользователь:</strong>
         <span th:text="${user.login}"></span>
-        <a th:href="@{/auth}" style="float: right;">Выйти</a>
+        <a th:href="@{/logout}" style="float: right;">Выйти</a>
     </div>
 
     <div th:if="${!chats.isEmpty()}">
